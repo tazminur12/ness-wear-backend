@@ -45,6 +45,8 @@ async function connectDB() {
   try {
     await client.connect();
     db = client.db("nesswearDB");
+    db.collection("categories").createIndex({ name: 1 }, { unique: true });
+    db.collection("subcategories").createIndex({ name: 1 }, { unique: true });
     console.log("✅ MongoDB connected successfully");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error);
@@ -54,7 +56,7 @@ async function connectDB() {
 
 // test route
 app.get("/", (req, res) => {
-  res.send("NESS WEAR server is running...");
+  res.send("NESS WEAR server is running...✅");
 });
 
 // check database connection
